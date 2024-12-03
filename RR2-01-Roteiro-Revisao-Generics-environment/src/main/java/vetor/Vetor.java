@@ -2,6 +2,8 @@ package vetor;
 
 import java.util.Comparator;
 
+import javax.management.RuntimeErrorException;
+
 /**
  * Implementação de um vetor de objetos simples para exercitar os conceitos de
  * Generics.
@@ -9,7 +11,7 @@ import java.util.Comparator;
  * @author Adalberto
  *
  */
-public class Vetor {
+public class Vetor<T> {
 
 	// O array interno onde os objetos manipulados são guardados
 	private Object[] arrayInterno;
@@ -27,7 +29,8 @@ public class Vetor {
 	public Vetor(int tamanho) {
 		super();
 		this.tamanho = tamanho;
-		this.indice = -1;
+		this.indice = 0;
+		this.arrayInterno = new Object[tamanho];
 	}
 
 	public void setComparadorMaximo(Comparator comparadorMaximo) {
@@ -39,33 +42,51 @@ public class Vetor {
 	}
 
 	// Insere um objeto no vetor
-	public void inserir(Object o) {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+	public void inserir(T o) {
+		if(isCheio()){
+			throw new RuntimeException("erro");
+		}
+		arrayInterno[indice] = o;
+		indice++;
 	}
 
 	// Remove um objeto do vetor
-	public Object remover(Object o) {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+	public Object remover(T o) {
+		if(isVazio()){
+			throw new RuntimeException("erro");
+		}
+		arrayInterno[procurar(o)] = null;
 	}
 
 	// Procura um elemento no vetor
-	public Object procurar(Object o) {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+	public Object procurar(T o) {
+		if(isVazio()){
+			throw new RuntimeException("erro");
+		}
+		for(int i = 0; i < arrayInterno.length; i++){
+			if(o.compareTo(arrayInterno[i]) == 0){
+				return i;
+			}
+		}
 	}
 
 	// Diz se o vetor está vazio
 	public boolean isVazio() {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+		for(Object o : arrayInterno){
+			if(o != null){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// Diz se o vetor está cheio
 	public boolean isCheio() {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+		for(Object o : arrayInterno){
+			if(o == null){
+				return false;
+			}
+		}
+		return true;
 	}
-
 }

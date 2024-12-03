@@ -64,9 +64,9 @@
 						</goals>
 						<configuration>
 							<!-- insira sua matricula -->
-							<matricula>123210982</matricula>
+							<matricula>SUA MATRICULA AQUI</matricula>
 							<!-- insira o ID correto da atividade e a turma -->
-							<roteiro>RR1-01</roteiro>
+							<roteiro>ID DO ROTEIRO AQUI</roteiro>
 							<!-- NÃO MODIFIQUE AS TAGS ABAIXO -->
 							<semestre>2024.2</semestre>
 							<url>http://150.165.85.97/submitAtividade</url>
