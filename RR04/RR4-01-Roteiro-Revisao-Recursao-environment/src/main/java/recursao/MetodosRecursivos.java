@@ -36,35 +36,53 @@ public class MetodosRecursivos {
 
 	public int countNotNull(Object[] array) {
 		int result = 0;
-		// TODO IMPLEMENTE AQUI O CODIGO QUE CONTA (USANDO RECURSAO) A
-		// QUANTIDADE DE ELEMENTOS NAO NULOS
-		// DE UM ARRAY DE OBJETOS RECEBIDO COMO PARAMETRO
+		result = countNotNullCount(array, 0);
+		System.out.println(result);
 		return result;
 	}
 
+	private int countNotNullCount(Object[] array, int n){
+		int contador = 0;
+		if(n == array.length-1){
+			contador = (array[n] != null) ? contador+1 : contador;
+		}
+		else{
+			contador += countNotNullCount(array, n+1);
+			contador = (array[n] != null) ? contador+1 : contador;
+		}
+		return contador;
+	}
+
 	public long potenciaDe2(int expoente) {
-		int result = 1;
-		// TODO IMPLEMENTE (USANDO RECURSAO) O CODIGO PARA PRODUZIR A N-ESIMA
-		// POTENCIA
-		// DE 2
+		long result = 1;
+		if(expoente == 0){
+			result *= 1;
+		}
+		else{
+			result = 2 * potenciaDe2(expoente-1);
+		}
 		return result;
 	}
 
 	public double progressaoAritmetica(double termoInicial, double razao, int n) {
 		double result = 0;
-		// TODO IMPLEMENTE SEU CODIGO (USANDO RECURSAO) DE ENCONTRAR O n-ESIMO
-		// TERMO
-		// DA PROGRESSAO ARITMETICA, DADO O TERMO INICIAL E A RAZAO
-		// VOCE NAO PODE USAR A FORMULA QUE CALCULA O N-ESIMO TERMO. DEVE USAR RECURSAO
+		if(n == 1){
+			result = termoInicial;
+		}
+		else{
+			result = razao + progressaoAritmetica(termoInicial, razao, n-1);
+		}
 		return result;
 	}
 
 	public double progressaoGeometrica(double termoInicial, double razao, int n) {
-		double result = 1;
-		// TODO IMPLEMENTE SEU CODIGO (USANDO RECURSAO) DE ENCONTRAR O n-ESIMO
-		// TERMO
-		// DA PROGRESSAO GEOMETRICA, DADO O TERMO INICIAL E A RAZAO
-		// VOCE NAO PODE USAR A FORMULA QUE CALCULA O N-ESIMO TERMO. DEVE USAR RECURSAO
+		double result = 0;
+		if(n == 1){
+			result = termoInicial;
+		}
+		else{
+			result = razao * progressaoGeometrica(termoInicial, razao, n-1);
+		}
 		return result;
 	}
 	
