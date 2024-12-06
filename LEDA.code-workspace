@@ -2,15 +2,12 @@
     "folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "RR01"
-		},
-		{
-			"path": "RR02"
-		},
-		{
-			"path": "RR03"
 		}
-	]
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"RR03",
+			""
+		]
+	}
 }
