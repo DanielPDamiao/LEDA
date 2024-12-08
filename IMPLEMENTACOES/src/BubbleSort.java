@@ -1,14 +1,11 @@
 public class BubbleSort {
-    
-    public BubbleSort() {
-    }
 
-    public void BubSort(int[] array, int ini, int fim) {
-        if(ini == fim){
+    public void BubSort(int[] array, int tamanho) {
+        if(tamanho == 1){
             return;
         }
-        BubOrd(array, ini, fim);
-        BubSort(array, ini, fim-1);
+        BubOrd(array, 0, tamanho-1);
+        BubSort(array, tamanho-1);
     }
 
     private void BubOrd(int[] array, int ini, int fim){
