@@ -3,10 +3,9 @@ import java.util.Arrays;
 
 public class Teste {
 
-    static QuickSort qs = new QuickSort();
-    static int[] array = {8, 6, 2, 3, 1 ,7, 4, 9, 5, 0};
+    static LastOcurrenceSearch los = new LastOcurrenceSearch();
+    static int[] array = {0, 2, 2, 2, 3, 4, 5, 6, 7, 8, 9};
     public static void main(String[] args) {
-        qs.QuiSort(array, 0, array.length-1);
-        System.out.println(Arrays.toString(array));
+        System.out.println(los.search(array, 2));
     }
 }
