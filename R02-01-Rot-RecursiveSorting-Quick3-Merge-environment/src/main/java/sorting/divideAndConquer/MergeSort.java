@@ -1,6 +1,8 @@
 package sorting.divideAndConquer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import sorting.AbstractSorting;
 
@@ -14,45 +16,48 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
+        T[] listaResp = MerSort(array, leftIndex, rightIndex);
+        array = listaResp;
 	}
 
-	private ArrayList<T> MerSort(T[] array, int ini, int fim){
-        ArrayList<T> listaResp = new ArrayList<>();
-        if(ini == fim){
-             listaResp.add(array[ini]);
-        }
-        else{
-            int medio = (ini + fim)/2;
-            ArrayList<T> lista1 = (ArrayList<T>) MerSort(array, ini, medio).clone();
-            ArrayList<T> lista2 = (ArrayList<T>) MerSort(array, medio+1, fim).clone();
-            listaResp = (ArrayList<T>) MerSortOrd(listaResp, lista1, lista2).clone();
-        }
-        return listaResp;
-    }
-
-    private ArrayList<T> MerSortOrd(ArrayList<T> listaResp, ArrayList<T> lista1, ArrayList<T> lista2){
-        if(lista1.size() == 0 && lista2.size() == 0){
+	private T[] MerSort(T[] array, int leftIndex, int rightIndex){
+        if(leftIndex >= rightIndex){
+            T[] listaResp = Arrays.copyOfRange(array, leftIndex, rightIndex+1);
             return listaResp;
         }
-        else if(lista1.size() == 0){
-            listaResp.add(lista2.get(0));
-            lista2.remove(0);
+        else{
+            int medio = (leftIndex + rightIndex)/2;
+            T[] leftList = MerSort(array, leftIndex, medio);
+            T[] rightList = MerSort(array, medio+1, rightIndex);
+
+            T[] listaResp = Arrays.copyOfRange(array, leftIndex, rightIndex+1);
+            listaResp = MerSortOrd(listaResp, leftList, rightList, 0, 0 ,0);
+            return listaResp;
         }
-        else if(lista2.size() == 0){
-            listaResp.add(lista1.get(0));
-            lista1.remove(0);
+    }
+
+    private T[] MerSortOrd(T[] listaResp, T[] leftList, T[] rightList, int n, int i, int j){
+        if(i >= leftList.length && j >= rightList.length){
+            return listaResp;
+        }
+        else if(i >= leftList.length){
+            listaResp[n] = rightList[j];
+            MerSortOrd(listaResp, leftList, rightList, n+1, i, j+1);
+        }
+        else if(j >= rightList.length){
+            listaResp[n] = leftList[i];
+            MerSortOrd(listaResp, leftList, rightList, n+1, i+1, j);
         }
         else{
-            if(lista1.get(0).compareTo(lista2.get(0)) <= 0){
-                listaResp.add(lista1.get(0));
-                lista1.remove(0);
+            if(leftList[i].compareTo(rightList[j]) <= 0){
+                listaResp[n] = leftList[i];
+                MerSortOrd(listaResp, leftList, rightList, n+1, i+1, j);
             }
             else{
-                listaResp.add(lista2.get(0));
-                lista2.remove(0);
+                listaResp[n] = rightList[j];
+                MerSortOrd(listaResp, leftList, rightList, n+1, i, j+1);
             }
         }
-        listaResp = (ArrayList<T>) MerSortOrd(listaResp, lista1, lista2).clone();
         return listaResp;
     }
 }
