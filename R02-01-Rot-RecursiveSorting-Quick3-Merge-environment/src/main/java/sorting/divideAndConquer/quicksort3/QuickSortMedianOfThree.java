@@ -24,6 +24,8 @@ public class QuickSortMedianOfThree<T extends Comparable<T>> extends
 		if(leftIndex >= rightIndex){
             return;
         }
+
+        
 		int meio = (leftIndex + rightIndex)/2;
 		if(array[meio].compareTo(array[rightIndex]) > 0){
 			Util.swap(array, rightIndex, meio);
@@ -35,6 +37,7 @@ public class QuickSortMedianOfThree<T extends Comparable<T>> extends
 			Util.swap(array, meio, leftIndex);
 		}
 		Util.swap(array, meio, rightIndex-1);
+        
         int i = partition(array, leftIndex+1, rightIndex-1);
         sort(array, leftIndex, i-1);
         sort(array, i+1, rightIndex);

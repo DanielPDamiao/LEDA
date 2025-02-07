@@ -12,10 +12,11 @@ public class OrderStatisticsSelectionImplTest {
 
         // Teste usando Integer.valueOf() para objetos Integer
         assertEquals(Integer.valueOf(1), impl.getOrderStatistics(array, 1));
-        assertEquals(Integer.valueOf(5), impl.getOrderStatistics(array, 5));
+        assertEquals(Integer.valueOf(3), impl.getOrderStatistics(array, 5));
         assertEquals(Integer.valueOf(5), impl.getOrderStatistics(array, 7));
-        assertEquals(Integer.valueOf(9), impl.getOrderStatistics(array, 10));
-        assertEquals(Integer.valueOf(3), impl.getOrderStatistics(array, 3));
+        assertEquals(Integer.valueOf(6), impl.getOrderStatistics(array, 10));
+        assertEquals(Integer.valueOf(2), impl.getOrderStatistics(array, 3));
+        assertEquals(Integer.valueOf(9), impl.getOrderStatistics(array, 11));
 
         // Ou, se preferir usar tipos primitivos:
         // assertEquals(1, (int) impl.getOrderStatistics(array, 1));

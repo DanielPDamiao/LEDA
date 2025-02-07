@@ -17,7 +17,7 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSorting<T> {
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
         T[] listaResp = MerSort(array, leftIndex, rightIndex);
-        for(int i = 0; i < array.length; i++){ array[i] = listaResp[i];}
+        for(int i = leftIndex; i <= rightIndex; i++){ array[i] = listaResp[i];}
 	}
 
 	private T[] MerSort(T[] array, int leftIndex, int rightIndex){
