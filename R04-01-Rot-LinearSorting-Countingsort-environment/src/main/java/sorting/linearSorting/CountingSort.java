@@ -18,7 +18,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
 		if(rightIndex < leftIndex){
-			return;
+			System.exit(0);
 		}
 
 		int maxValue = findMax(array, leftIndex, rightIndex);
