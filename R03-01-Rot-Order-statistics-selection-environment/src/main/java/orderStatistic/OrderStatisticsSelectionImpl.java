@@ -20,67 +20,55 @@ public class OrderStatisticsSelectionImpl<T extends Comparable<T>> implements Or
 	 */
 	@Override
 	public T getOrderStatistics(T[] array, int k) {
-		int elementIndex = selectionOrderStatistics(array, k);
-		return array[elementIndex];
-	}
-
-	private int selectionOrderStatistics(T[] array, int target){
-		int actualIdx = -1;
-		int maxValueIdx = findMax(array);
-		
-		for(int i = target; i > 0; i--){
-			
-			int nextMinIdx = findNextEqual(array, actualIdx);
-			if(nextMinIdx == -1){
-				actualIdx = findMin(array, actualIdx, maxValueIdx);
+		int actEst = 0;
+		int actInd = 0;
+		while (actEst < k && k <= array.length) {
+			if(actEst == 0){
+				actInd = SelectMin(array);
 			}
 			else{
-				actualIdx = nextMinIdx;
+				actInd = SelectMin(array, actInd);
+			}
+			actEst = actEst+1;
+		}
+		return array[actInd];
+
+	}
+
+	private int SelectMin(T[] array){
+		int minInd = 0;
+		for(int i = minInd+1; i < array.length; i++){
+			if(array[i].compareTo(array[minInd]) < 0){
+				minInd = i;
 			}
 		}
-		return actualIdx;
+		return minInd;
 	}
 
 	private int findMax(T[] array){
-		int newMaxIdx = 0;
-		for(int i = 1; i < array.length; i++){
-			if(array[i].compareTo(array[newMaxIdx]) >= 0){
-				newMaxIdx = i;
+		int minInd = 0;
+		for(int i = minInd+1; i < array.length; i++){
+			if(array[i].compareTo(array[minInd]) >= 0){
+				minInd = i;
 			}
 		}
-		return newMaxIdx;
+		return minInd;
 	}
 
-	private int findMin(T[] array, int actualIdx, int maxValueIdx){
-		int newMinIdx = maxValueIdx;
-		if(actualIdx == -1){
-			for(int i = array.length-1; i >= 0; i--){
-				if( array[i].compareTo(array[newMinIdx]) <= 0 ){
-					newMinIdx = i;
-				}
+	private int SelectMin(T[] array, int actInd){
+		int minInd = findMax(array);
+		int i = 0;
+		while(i < array.length && (array[minInd].compareTo(array[actInd]) != 0 || minInd <= actInd)){
+			if(array[i].compareTo(array[actInd]) == 0 && i > actInd){
+				minInd = i;
 			}
-		}
-		else{
-			for(int i = array.length-1; i >= 0; i--){
-				if( array[i].compareTo(array[newMinIdx]) <=0 && array[i].compareTo(array[actualIdx]) > 0 ){
-					newMinIdx = i;
-				}
+			else if(array[i].compareTo(array[minInd]) < 0 && array[i].compareTo(array[actInd]) > 0){
+				minInd = i;
 			}
+			i = i+1;
 		}
-		return newMinIdx;
+		return minInd;
 	}
 
-	private int findNextEqual(T[] array, int actualIdx){
-		int nextEqual = -1;
-		if(actualIdx != -1){
-			for(int i = actualIdx+1; i < array.length; i++){
-				if(array[i].compareTo(array[actualIdx]) == 0){
-					nextEqual = i;
-					break;
-				}
-			}
-		}
-		return nextEqual;
-	}
 }
 
