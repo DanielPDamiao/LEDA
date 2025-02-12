@@ -17,7 +17,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
-		if(rightIndex < leftIndex){
+		if(rightIndex < leftIndex || array.length <= 0){
 			System.exit(0);
 		}
 
@@ -34,7 +34,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 		int[] compArray = new int[rightIndex-leftIndex+1];
 		for(int i = leftIndex; i <= rightIndex; i++){
-			compArray[i] = array[i];
+			compArray[i - leftIndex] = array[i];
 		}
 
 		for(int i = leftIndex; i <= rightIndex; i++){
