@@ -7,3 +7,13 @@
   <level>FINE</level>
   <message>File 123210982-DANIEL PEREIRA DAMIAO.zip was received. It was sent by DANIEL PEREIRA DAMIAO from IP 150.165.74.108 at 12-02-2025 09*27*06</message>
 </record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2025-02-12T13:33:11.046-0300</date>
+  <logger>DANIEL PEREIRA DAMIAO</logger>
+  <level>FINE</level>
+  <message>File 123210982-DANIEL PEREIRA DAMIAO.zip was received. It was sent by DANIEL PEREIRA DAMIAO from IP 150.165.74.102 at 12-02-2025 13*33*11</message>
+</record>

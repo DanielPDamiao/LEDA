@@ -33,7 +33,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 			}
 
 			for(int i = leftIndex; i <= rightIndex; i++){
-				array[countArray[compArray[i - leftIndex] - minValue]-1] = compArray[i];
+				array[countArray[compArray[i - leftIndex] - minValue] + leftIndex -1] = compArray[i - leftIndex];
 				countArray[compArray[i - leftIndex] - minValue] -= 1;
 			}
 		}

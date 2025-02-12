@@ -143,6 +143,11 @@ public class StudentSortingTestCustom {
     }
 
     @Test
+    public void testSort15_2() {
+        genericTest(vetorValoresRepetidos, 2, 6);
+    }
+
+    @Test
     public void testSort16() {
         Integer[] array = new Integer[] {7, 6, 5, 4, 3, 2, 1, 0};
         implementation.sort(array, 0, 99);

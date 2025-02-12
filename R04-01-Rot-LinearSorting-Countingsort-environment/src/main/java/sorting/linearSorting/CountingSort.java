@@ -38,8 +38,8 @@ public class CountingSort extends AbstractSorting<Integer> {
 		}
 
 		for(int i = leftIndex; i <= rightIndex; i++){
-			array[countArray[compArray[i]]-1] = compArray[i];
-			countArray[compArray[i]] -= 1;
+			array[countArray[compArray[i - leftIndex]] + leftIndex -1] = compArray[i - leftIndex];
+			countArray[compArray[i-leftIndex]] -= 1;
 		}
 	}
 
