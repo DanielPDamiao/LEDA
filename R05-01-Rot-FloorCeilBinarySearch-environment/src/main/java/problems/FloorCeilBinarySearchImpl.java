@@ -18,12 +18,16 @@ public class FloorCeilBinarySearchImpl implements FloorCeil {
 		Integer result = null;
 		int leftIdx = 0;
 		int rightIdx = array.length-1;
-		while(result != x && leftIdx <= rightIdx){
-			int middle = (rightIdx - leftIdx)/2;
+		while(leftIdx <= rightIdx){
+			int middle = (rightIdx + leftIdx)/2;
+			if(array[middle] == x){
+				result = array[middle];
+				break;
+			}
 			if(array[middle] > x){
 				rightIdx = middle-1;
 			}
-			else if(array[middle] <= x){
+			else{
 				result = array[middle];
 				leftIdx = middle+1;
 			}
@@ -33,8 +37,24 @@ public class FloorCeilBinarySearchImpl implements FloorCeil {
 
 	@Override
 	public Integer ceil(Integer[] array, Integer x) {
-		// TODO implement your code here
-		// throw new UnsupportedOperationException("Not implemented yet!");
+		Integer result = null;
+		int leftIdx = 0;
+		int rightIdx = array.length-1;
+		while(leftIdx <= rightIdx){
+			int middle = (rightIdx + leftIdx)/2;
+			if(array[middle] == x){
+				result = array[middle];
+				break;
+			}
+			if(array[middle] < x){
+				leftIdx = middle+1;
+			}
+			else{
+				result = array[middle];
+				rightIdx = middle-1;
+			}
+		}
+		return result;
 	}
 
 }
