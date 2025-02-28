@@ -3,8 +3,8 @@ package adt.queue;
 public class CircularQueue<T> implements Queue<T> {
 
 	private T[] array;
-	private int tail;
-	private int head;
+	private int tail; //aponta pro ultimo adicionado
+	private int head; //aponta para o ultimo apagado
 	private int elements;
 
 	public CircularQueue(int size) {
@@ -19,11 +19,9 @@ public class CircularQueue<T> implements Queue<T> {
 		if(isFull()){
 			throw new QueueOverflowException();
 		}
-		if(isEmpty()){
-			this.head = (this.head + 1) % this.array.length ;
-		}
-		tail = (this.head + 1) % this.array.length;
-		this.array[tail] = element;
+		tail = (tail + 1) % array.length;
+		array[tail] = element;
+		elements += 1; 
 	}
 
 	@Override
@@ -31,24 +29,27 @@ public class CircularQueue<T> implements Queue<T> {
 		if(isEmpty()){
 			throw new QueueUnderflowException();
 		}
-		T temp = this.array[head];
-		this.head = (this.head + 1) % this.array.length ;
-		return temp;
+		head = (head + 1) % array.length;
+		elements -= 1;
+		return array[head];
 	}
 
 	@Override
 	public T head() {
-		return this.array[head];
+		if(isEmpty()){
+			return null;
+		}
+		return array[(head + 1) % array.length];
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return this.tail == this.head;
+		return elements == 0;
 	}
 
 	@Override
 	public boolean isFull() {
-		return (this.head - 1) % this.array.length == this.tail;
+		return elements == array.length;
 	}
 
 }
