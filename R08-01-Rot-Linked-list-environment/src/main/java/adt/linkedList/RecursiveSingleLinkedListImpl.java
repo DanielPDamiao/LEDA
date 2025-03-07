@@ -1,4 +1,5 @@
 package adt.linkedList;
+import java.util.ArrayList;
 
 public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
@@ -12,13 +13,13 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public boolean isEmpty() {
-		return data.equals(null);
+		return data == null;
 	}
 
 	@Override
 	public int size() {
 		int size = 0;
-		if(!data.equals(null)){
+		if(data != null){
 			size += next.size();
 			size += 1;
 		}
@@ -28,7 +29,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public T search(T element) {
 		T resp = null;
-		if(!data.equals(null)){
+		if(data != null){
 			if(data.equals(element)){
 				resp = data;
 			}
@@ -42,7 +43,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public void insert(T element) {
-		if(data.equals(null)){
+		if(data == null){
 			data = element;
 			next = new RecursiveSingleLinkedListImpl<>();
 		}
@@ -53,7 +54,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public void remove(T element) {
-		if(!data.equals(null)){
+		if(data != null){
 			if(data.equals(element)){
 				data = next.getData();
 				next = next.getNext();
@@ -66,8 +67,17 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		ArrayList<T> list = new ArrayList<>();
+		list = toList(list);
+		return (T[]) list.toArray();
+	}
+
+	private ArrayList<T> toList(ArrayList<T> list) {
+		if(data != null){
+			list.add(data);
+			list = next.toList(list);
+		}
+		return list;
 	}
 
 	public T getData() {

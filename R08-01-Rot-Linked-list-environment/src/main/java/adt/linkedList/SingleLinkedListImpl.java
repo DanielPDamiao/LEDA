@@ -39,6 +39,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		SingleLinkedListNode<T> actual = head;
 		if(isEmpty()){
 			SingleLinkedListNode<T> newHead = new SingleLinkedListNode<>();
+			newHead.setData(element);
 			newHead.setNext(head);
 			head = newHead;
 		}
