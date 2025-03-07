@@ -18,10 +18,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public int size() {
 		int size = 0;
-		if(data.equals(null)){
-			return size;
-		}
-		else{
+		if(!data.equals(null)){
 			size += next.size();
 			size += 1;
 		}
@@ -31,11 +28,13 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public T search(T element) {
 		T resp = null;
-		if(data.equals(null)){
-			return resp;
-		}
-		else if(data.equals(element)){
-			resp = data;
+		if(!data.equals(null)){
+			if(data.equals(element)){
+				resp = data;
+			}
+			else{
+				resp = next.search(element);
+			}
 		}
 		return resp;
 

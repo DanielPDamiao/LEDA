@@ -1,4 +1,5 @@
 package adt.linkedList;
+import java.util.ArrayList;
 
 public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
@@ -27,47 +28,57 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public T search(T element) {
 		SingleLinkedListNode<T> actual = head;
-		while(!actual.isNIL()){
-			if(actual.getData().equals(element)){
-				return element;
-			}
+		while(!actual.isNIL() && !actual.getData().equals(element)){
 			actual = actual.getNext();
 		}
-		return null;
+		return actual.getData();
 	}
 
 	@Override
 	public void insert(T element) {
 		SingleLinkedListNode<T> actual = head;
-		while(!actual.isNIL()){
-			actual = actual.getNext();
+		if(isEmpty()){
+			SingleLinkedListNode<T> newHead = new SingleLinkedListNode<>();
+			newHead.setNext(head);
+			head = newHead;
 		}
-		actual.setData(element);
-		actual.setNext(new SingleLinkedListNode<>());
+		else{
+			while(!actual.isNIL()){
+				actual = actual.getNext();
+			}
+			actual.setData(element);
+			actual.setNext(new SingleLinkedListNode<>());
+		}
 	}
 
 	@Override
 	public void remove(T element) {
-		SingleLinkedListNode<T> actual = head;
-		while(!actual.isNIL()){
-			if(actual.getData().equals(element)){
-				actual.setData(actual.getNext().getData());
-				actual.setNext(actual.getNext().getNext());
-				break;
+		if(head.getData().equals(element)){
+			head = head.getNext();
+		}
+		else{
+			SingleLinkedListNode<T> actual = head;
+			while(!actual.isNIL()){
+				if(actual.getData().equals(element)){
+					actual.setData(actual.getNext().getData());
+					actual.setNext(actual.getNext().getNext());
+				}
+				else{
+					actual = actual.getNext();
+				}
 			}
-			actual = actual.getNext();
 		}
 	}
 
 	@Override
 	public T[] toArray() {
-		T[] array = new T[size()];
+		ArrayList<T> array = new ArrayList<>();
 		SingleLinkedListNode<T> actual = head;
 		while(!actual.isNIL()){
+			array.add(actual.getData());
 			actual = actual.getNext();
 		}
-		actual.setData(element);
-		actual.setNext(new SingleLinkedListNode<>());
+		return (T[]) array.toArray();
 	}
 
 	public SingleLinkedListNode<T> getHead() {
