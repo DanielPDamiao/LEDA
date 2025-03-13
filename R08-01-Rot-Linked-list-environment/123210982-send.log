@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2025-03-07T18:01:04.795-0300</date>
+  <logger>DANIEL PEREIRA DAMIAO</logger>
+  <level>FINE</level>
+  <message>File 123210982-DANIEL PEREIRA DAMIAO.zip was received. It was sent by DANIEL PEREIRA DAMIAO from IP 192.168.3.6 at 07-03-2025 18*01*04</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2025-03-07T19:24:17.000-0300</date>
+  <logger>DANIEL PEREIRA DAMIAO</logger>
+  <level>FINE</level>
+  <message>File 123210982-DANIEL PEREIRA DAMIAO.zip was received. It was sent by DANIEL PEREIRA DAMIAO from IP 192.168.3.6 at 07-03-2025 19*24*16</message>
+</record>
