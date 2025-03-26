@@ -1,5 +1,7 @@
 package adt.bst;
 
+import java.util.ArrayList;
+
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	protected BSTNode<T> root;
@@ -25,7 +27,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	private int heightOf(BSTNode<T> node){
 		int height = -1;
 		if(!node.isEmpty()){
-			height = 1 + Math.max(0, Math.max( heightOf((BSTNode<T>)node.getLeft()), heightOf((BSTNode<T>)node.getRight())));
+			height = 1 + Math.max(heightOf((BSTNode<T>)node.getLeft()), heightOf((BSTNode<T>)node.getRight()));
 		}
 		return height;
 	}
@@ -36,7 +38,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private BSTNode<T> searchIn(BSTNode<T> node, T element){
-		BSTNode<T> resp = null;
+		BSTNode<T> resp = new BSTNode<T>();
 		if(!node.isEmpty()){
 			if(node.getData().equals(element)){
 				resp = node;
@@ -80,7 +82,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	private BSTNode<T> maximumOf(BSTNode<T> node) {
 		BSTNode<T> resp = null;
 		if(!node.isEmpty()){
-			if(node.isLeaf()){
+			if(node.getRight().isEmpty()){
 				resp = node;
 			}
 			else{
@@ -98,11 +100,11 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	private BSTNode<T> minimumOf(BSTNode<T> node){
 		BSTNode<T> resp = null;
 		if(!node.isEmpty()){
-			if(node.isLeaf()){
+			if(node.getLeft().isEmpty()){
 				resp = node;
 			}
 			else{
-				resp = maximumOf((BSTNode<T>)node.getLeft());
+				resp = minimumOf((BSTNode<T>)node.getLeft());
 			}
 		}
 		return resp;
@@ -110,45 +112,147 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> sucessor(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return sucessorOf(root, element);
 	}
 
 	private BSTNode<T> sucessorOf(BSTNode<T> node, T element){
 		BSTNode<T> resp = null;
 		if(!node.isEmpty()){
-			if(node.getData().compareTo(element) > 0)
+			if(node.getData().compareTo(element) > 0){
+				resp = sucessorOf((BSTNode<T>)node.getLeft(), element);
+				if(resp == null){
+					resp = node;
+				}
+			}
+			else{
+				resp = sucessorOf((BSTNode<T>)node.getRight(), element);
+			}
 		}
+		return resp;
 	}
 
 	@Override
 	public BSTNode<T> predecessor(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return predecessorOf(root, element);
+	}
+
+	private BSTNode<T> predecessorOf(BSTNode<T> node, T element){
+		BSTNode<T> resp = null;
+		if(!node.isEmpty()){
+			if(node.getData().compareTo(element) < 0){
+				resp = predecessorOf((BSTNode<T>)node.getRight(), element);
+				if(resp == null){
+					resp = node;
+				}
+			}
+			else{
+				resp = predecessorOf((BSTNode<T>)node.getLeft(), element);
+			}
+		}
+		return resp;
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		BSTNode<T> node = search(element);
+		removeOf(node);
+	}
+
+	private void removeOf(BSTNode<T> node){
+		if(!node.isEmpty()){
+			if(node.isLeaf()){
+				node.setData(null);
+				node.setLeft(null);
+				node.setRight(null);
+			}
+			else if(!node.getLeft().isEmpty() && !node.getRight().isEmpty()){
+				BSTNode<T> sucessor = sucessorOf(node, node.getData());
+				T temp = sucessor.getData();
+				removeOf(sucessor);
+				node.setData(temp);
+				
+			}
+
+			else{
+				if(node.getParent() == null){
+					if(!node.getLeft().isEmpty()){
+						root = (BSTNode<T>)node.getLeft();
+						node.getLeft().setParent(null);
+					}
+					else{
+						root = (BSTNode<T>)node.getRight();
+						node.getRight().setParent(null);
+					}
+				}
+				else{
+					if(node.getData().compareTo(node.getParent().getData()) < 0){
+						if(!node.getLeft().isEmpty()){
+							node.getParent().setLeft((BSTNode<T>)node.getLeft());
+							node.getLeft().setParent((BSTNode<T>)node.getParent());
+						}
+						else{
+							node.getParent().setLeft((BSTNode<T>)node.getRight());
+							node.getRight().setParent((BSTNode<T>)node.getParent());
+						}
+					}
+					else{
+						if(!node.getLeft().isEmpty()){
+							node.getParent().setRight((BSTNode<T>)node.getLeft());
+							node.getLeft().setParent((BSTNode<T>)node.getParent());
+						}
+						else{
+							node.getParent().setRight((BSTNode<T>)node.getRight());
+							node.getRight().setParent((BSTNode<T>)node.getParent());
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override
 	public T[] preOrder() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		ArrayList<T> list = new ArrayList<>();
+		preOrderList(list, root);
+		return (T[])list.toArray(new Comparable[size()]);
+	}
+
+	private void preOrderList(ArrayList<T> list, BSTNode<T> node) {
+		if(!node.isEmpty()){
+			list.add(node.getData());
+			preOrderList(list, (BSTNode<T>)node.getLeft());
+			preOrderList(list, (BSTNode<T>)node.getRight());
+		}
 	}
 
 	@Override
 	public T[] order() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		ArrayList<T> list = new ArrayList<>();
+		orderList(list, root);
+		return (T[])list.toArray(new Comparable[size()]);
+	}
+
+	private void orderList(ArrayList<T> list, BSTNode<T> node){
+		if(!node.isEmpty()){
+			orderList(list, (BSTNode<T>)node.getLeft());
+			list.add(node.getData());
+			orderList(list, (BSTNode<T>)node.getRight());
+		}
 	}
 
 	@Override
 	public T[] postOrder() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		ArrayList<T> list = new ArrayList<>();
+		postOrderList(list, root);
+		return (T[])list.toArray(new Comparable[size()]);
+	}
+
+	private void postOrderList(ArrayList<T> list, BSTNode<T> node){
+		if(!node.isEmpty()){
+			postOrderList(list, (BSTNode<T>)node.getLeft());
+			postOrderList(list, (BSTNode<T>)node.getRight());
+			list.add(node.getData());
+		}
 	}
 
 	/**
