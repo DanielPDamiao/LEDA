@@ -58,11 +58,11 @@ public class SimpleBSTManipulationImpl<T extends Comparable<T>> implements Simpl
 			if(size((BSTNode<T>)node.getLeft()) + 1 == k){
 				resp = node.getData();
 			}
-			else if((size((BSTNode<T>)node.getLeft()) + 1) > k){
+			else if(size((BSTNode<T>)node.getLeft()) + 1 > k){
 				resp = orderStatistic((BSTNode<T>)node.getLeft(), k);
 			}
 			else{
-				resp = orderStatistic((BSTNode<T>)node.getRight(), k - (size((BSTNode<T>)node.getLeft())));
+				resp = orderStatistic((BSTNode<T>)node.getRight(), k - (size((BSTNode<T>)node.getLeft()) + 1));
 			}
 		}
 		return resp;
