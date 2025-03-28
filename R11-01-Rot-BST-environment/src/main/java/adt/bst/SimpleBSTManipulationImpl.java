@@ -49,36 +49,33 @@ public class SimpleBSTManipulationImpl<T extends Comparable<T>> implements Simpl
 
 	@Override
 	public T orderStatistic(BST<T> tree, int k) {
-		return orderStatistic(tree, (BSTNode<T>)tree.getRoot(), k);
+		return orderStatistic((BSTNode<T>)tree.getRoot(), k);
 	}
 
-	private T orderStatistic(BST<T> tree, BSTNode<T> node, int k){
+	private T orderStatistic(BSTNode<T> node, int k){
 		T resp = null;
 		if(!node.isEmpty()){
-			if(k == 1){
+			if(size((BSTNode<T>)node.getLeft()) + 1 == k){
 				resp = node.getData();
 			}
+			else if((size((BSTNode<T>)node.getLeft()) + 1) > k){
+				resp = orderStatistic((BSTNode<T>)node.getLeft(), k);
+			}
 			else{
-				resp = orderStatistic(tree, sucessorOf((BSTNode<T>)tree.getRoot(), node.getData()), k-1);
+				resp = orderStatistic((BSTNode<T>)node.getRight(), k - (size((BSTNode<T>)node.getLeft())));
 			}
 		}
 		return resp;
 	}
 
-	private BSTNode<T> sucessorOf(BSTNode<T> node, T element){
-		BSTNode<T> resp = null;
-		if(!node.isEmpty()){
-			if(node.getData().compareTo(element) > 0){
-				resp = sucessorOf((BSTNode<T>)node.getLeft(), element);
-				if(resp == null){
-					resp = node;
-				}
-			}
-			else{
-				resp = sucessorOf((BSTNode<T>)node.getRight(), element);
-			}
+	private int size(BSTNode<T> node) {
+		int resp = 0;
+		if (!node.isEmpty()) {
+			resp = 1 + size((BSTNode<T>) node.getLeft())
+					+ size((BSTNode<T>) node.getRight());
 		}
 		return resp;
 	}
+
 
 }
