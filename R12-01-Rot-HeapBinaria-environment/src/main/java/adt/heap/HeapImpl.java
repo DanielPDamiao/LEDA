@@ -84,8 +84,18 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	 * para subir os elementos na heap.
 	 */
 	private void heapify(int position) {
-		// TODO Implement htis method.
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int pos = position;
+		if(left(position) <= index && comparator.compare(heap[left(position)], heap[pos]) > 0){
+			pos = left(position);
+		}
+		if(right(position) <= index && comparator.compare(heap[right(position)], heap[pos]) > 0){
+			pos = right(position);
+		}
+		
+		if(pos != position){
+			Util.swap(heap, position, pos);
+			heapify(pos);
+		}
 	}
 
 	@Override
@@ -95,38 +105,59 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 			heap = Arrays.copyOf(heap, heap.length + INCREASING_FACTOR);
 		}
 		// /////////////////////////////////////////////////////////////////
-		// TODO Implemente a insercao na heap aqui.
-		throw new UnsupportedOperationException("Not implemented yet!");
+		index += 1;
+		heap[index] = element;
+		int i = index;
+		while(comparator.compare(heap[i], heap[parent(i)]) > 0 && i > 0){
+			Util.swap(heap, i, parent(i));
+			i = parent(i);
+		}
 	}
 
 	@Override
 	public void buildHeap(T[] array) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		heap = array;
+		index = array.length-1;
+		for(int i = parent(index); i >= 0; --i){
+			heapify(i);
+		}
 	}
 
 	@Override
 	public T extractRootElement() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T root = null;
+		if(!isEmpty()){
+			root = heap[0];
+			Util.swap(heap, index, 0);
+			index -= 1;
+			heapify(0);
+		}
+		return root;
 	}
 
 	@Override
 	public T rootElement() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T resp = null;
+		if(!isEmpty()){
+			resp = heap[0];
+		}
+		return resp;
 	}
 
 	@Override
 	public T[] heapsort(T[] array) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		buildHeap(array);
+		for(int i = index; i >= 0; i--){
+			Util.swap(heap, 0, i);
+			index -= 1;
+			heapify(0);
+		}
+		return heap;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return index + 1;
 	}
 
 	public Comparator<T> getComparator() {
