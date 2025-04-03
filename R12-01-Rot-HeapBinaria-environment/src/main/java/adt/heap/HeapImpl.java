@@ -152,6 +152,11 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 			index -= 1;
 			heapify(0);
 		}
+		if(heap[0].compareTo(heap[heap.length-1]) > 0){
+			for(int i = 0; i <= (heap.length/2)-1; i++){
+				Util.swap(array, i, heap.length-1-i);
+			}
+		}
 		return heap;
 	}
 
